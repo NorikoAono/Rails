@@ -1,0 +1,19 @@
+- if task.errors.present?
+    ul#error_explanation
+        - task.errors.full_messages.each do |message|
+            li=message
+
+= form_with model: task, local: true do |f|
+    .form-group
+        = f.label :name
+        .mb-1
+        = f.text_field :name, class: 'form-controll', id: 'task_name'
+    .form-group
+        = f.label :description
+        .mb-1
+        = f.text_area :description, rows: 5, class: 'form-controll', id: 'task_description'
+    .form-group
+        = f.label :image
+        = f.file_field :image, class: 'form-control'
+    .mb-5
+    = f.submit nil, class: 'btn btn-primary'
