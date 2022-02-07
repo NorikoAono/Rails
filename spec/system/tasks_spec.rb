@@ -10,7 +10,7 @@ describe 'タスク管理機能', type: :system do
         visit login_path
         fill_in 'メールアドレス', with: login_user.email
         fill_in 'パスワード', with: login_user.password
-        click_button 'ログインする'
+        click_button 'ログインする' 
     end
 
     shared_examples_for 'ユーザーAが作成したタスクが表示される' do
@@ -98,7 +98,7 @@ describe 'タスク管理機能', type: :system do
         let(:login_user) { user_a }
 
         before do
-            visit edit_task_path
+            visit edit_task_path(task_a)
             fill_in '名称', with: task_name
             click_button '更新する'
         end
@@ -129,11 +129,12 @@ describe 'タスク管理機能', type: :system do
             let(:task_name) { 'タスクを削除する' }
 
             before do
-                click_button '削除する'
+                click_on '削除'
+                accept_confirm
             end
 
             it 'タスクが削除される' do
-                expect(page).to have_selector '.alert-success', text: 'タスクを削除する'
+                expect(page).to have_selector '.alert-success', text: '削除しました'
             end
         end
 
@@ -142,11 +143,12 @@ describe 'タスク管理機能', type: :system do
 
             before do
                 visit task_path(task_a)
-                click_button '削除する'
+                click_on '削除'
+                accept_confirm
             end
 
             it 'タスクが削除される' do
-                expect(page).to have_selector '.alert-success', text: '詳細画面でタスクを削除する'
+                expect(page).to have_selector '.alert-success', text: '削除しました'
             end
         end
     end
